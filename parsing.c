@@ -6,7 +6,7 @@
 /*   By: mtravez <mtravez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:44:50 by mtravez           #+#    #+#             */
-/*   Updated: 2023/02/23 15:43:43 by mtravez          ###   ########.fr       */
+/*   Updated: 2023/02/24 18:25:52 by mtravez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,10 @@ t_command	*new_cmd(char **cmd, char **paths)
 		return (NULL);
 	command->argv = cmd;
 	command->path = get_cpath(paths, cmd[0]);
-	if (!command->path)
-	{
-		free_matrix(command->argv);
-		free (command);
-		return (NULL);
-	}
 	return (command);
 }
 
-t_command	**get_all_commands(t_holder *holder, char **paths, int argc)
+t_command	**get_all_commands(t_holder *holder, char **paths)
 {
 	int			i;
 	int			j;
@@ -51,23 +45,8 @@ t_command	**get_all_commands(t_holder *holder, char **paths, int argc)
 	cmds = malloc(sizeof(t_holder *) * holder->argc - 3);
 	j = -1;
 	i = 1;
-	if (argc != holder->argc)
-		i++;
-	while (++i <= argc - 2)
-	{
+	while (++i <= holder->argc - 2)
 		cmds[++j] = new_cmd(ft_split_cmds(holder->argv[i]), paths);
-		if (!cmds[j])
-		{
-			if (j != 0 || (j == 0 && (argc != holder->argc)))
-				return (NULL);
-			else
-			{
-				holder->argc--;
-				free(cmds);
-				return (get_all_commands(holder, paths, argc));
-			}
-		}
-	}
 	return (cmds);
 }
 
@@ -87,7 +66,7 @@ t_holder	*init_holder(char **argv, int argc, char **paths)
 		return (NULL);
 	holder->argc = argc;
 	holder->argv = argv;
-	holder->cmds = get_all_commands(holder, paths, argc);
+	holder->cmds = get_all_commands(holder, paths);
 	if (!holder->cmds)
 		return (NULL);
 	return (holder);

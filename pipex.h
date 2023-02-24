@@ -6,7 +6,7 @@
 /*   By: mtravez <mtravez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:45:12 by mtravez           #+#    #+#             */
-/*   Updated: 2023/02/22 15:19:18 by mtravez          ###   ########.fr       */
+/*   Updated: 2023/02/24 18:42:49 by mtravez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ char		**get_paths(char **envp);
 char		*get_cpath(char **paths, char *cmd);
 t_holder	*init_holder(char	**argv, int argc, char **paths);
 t_pipe		*new_pipe(char	*path_in, char *path_out);
-int			parent(t_holder *holder, int index);
 char		**ft_split_cmds(char *arg);
+int			parent_ultimate(t_holder *holder);
 
 void		free_matrix(char **to_free);
 void		free_cmd(t_command *command);

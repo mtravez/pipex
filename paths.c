@@ -6,7 +6,7 @@
 /*   By: mtravez <mtravez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 15:30:39 by mtravez           #+#    #+#             */
-/*   Updated: 2023/02/21 15:42:15 by mtravez          ###   ########.fr       */
+/*   Updated: 2023/02/24 18:38:25 by mtravez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*get_cpath(char **paths, char *cmd)
 		free(path);
 		i++;
 	}
-	return (NULL);
+	return (paths[0]);
 }
 
 t_pipe	*new_pipe(char	*path_in, char *path_out)
