@@ -6,7 +6,7 @@
 /*   By: mtravez <mtravez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 15:44:50 by mtravez           #+#    #+#             */
-/*   Updated: 2023/02/21 18:02:43 by mtravez          ###   ########.fr       */
+/*   Updated: 2023/02/22 18:53:24 by mtravez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ void	free_holder(t_holder *holder)
 		while (holder->cmds[i])
 			free_cmd(holder->cmds[i++]);
 	}
+	free(holder->cmds);
 	close (holder->pipe->in_fd);
 	close (holder->pipe->out_fd);
 	free(holder->pipe);
+	holder->argv = NULL;
+	holder->envp = NULL;
 	free(holder);
 }

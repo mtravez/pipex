@@ -6,7 +6,7 @@
 /*   By: mtravez <mtravez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 18:44:10 by mtravez           #+#    #+#             */
-/*   Updated: 2023/02/21 14:58:56 by mtravez          ###   ########.fr       */
+/*   Updated: 2023/02/23 15:51:32 by mtravez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ int	child(t_holder *holder, int index, int *pipes)
 		dup2(holder->pipe->out_fd, STDOUT_FILENO);
 	close (pipes[1]);
 	close (holder->pipe->in_fd);
+	close (holder->pipe->out_fd);
 	close (pipes[0]);
 	if (execve(holder->cmds[index]->path, \
 	holder->cmds[index]->argv, holder->envp) == -1)
 	{
-		exit(2);
-		// return (0);
+		write(STDERR_FILENO, "couldn't execute", 16);
+		return (0);
 	}
 	return (1);
 }
@@ -46,7 +47,15 @@ int	parent(t_holder *holder, int index)
 	close (holder->pipe->in_fd);
 	holder->pipe->in_fd = fd[0];
 	close (fd[1]);
+	if (index == holder->argc - 4)
+	{
+		close (fd[0]);
+		close (holder->pipe->out_fd);
+	}
 	waitpid(her, &status, 0);
+	if (WIFEXITED(status))
+		if (status != 0)
+			return (status);
 	return (1);
 }
 // child[0] -> dup2(in_fd, pipe[1])
