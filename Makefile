@@ -24,3 +24,5 @@ clean:
 fclean: clean
 	@/bin/rm -f $(NAME)
 	@make fclean -C ./libft
+
+bonus: all

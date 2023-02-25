@@ -6,7 +6,7 @@
 /*   By: mtravez <mtravez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:44:50 by mtravez           #+#    #+#             */
-/*   Updated: 2023/02/24 18:25:52 by mtravez          ###   ########.fr       */
+/*   Updated: 2023/02/25 14:01:32 by mtravez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_holder	*init_holder(char **argv, int argc, char **paths)
 {
 	t_holder	*holder;
 
-	if (!input_is_valid(argv, argc))
+	if (argc < 5)
 		return (NULL);
 	holder = malloc(sizeof(t_holder *) + \
 	(sizeof(t_command *) * (argc - 3)) + \
