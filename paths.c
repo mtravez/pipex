@@ -6,7 +6,7 @@
 /*   By: mtravez <mtravez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 15:30:39 by mtravez           #+#    #+#             */
-/*   Updated: 2023/02/27 16:25:23 by mtravez          ###   ########.fr       */
+/*   Updated: 2023/02/27 19:07:08 by mtravez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ char	*get_cpath(char **paths, char *cmd)
 	i = 0;
 	if (!paths)
 		return (NULL);
+	if (access(cmd, X_OK) == 0)
+			return (cmd);
 	while (paths[i])
 	{
 		join_path = ft_strjoin(paths[i], "/");

@@ -6,7 +6,7 @@
 /*   By: mtravez <mtravez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 18:44:10 by mtravez           #+#    #+#             */
-/*   Updated: 2023/02/27 13:59:36 by mtravez          ###   ########.fr       */
+/*   Updated: 2023/02/27 18:36:47 by mtravez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,17 @@ static int	child(t_holder *holder, int index, int *pipes)
 		if (dup2(pipes[1], STDOUT_FILENO) == -1)
 			exit(1);
 	}
-	else
-	{
-		if (dup2(holder->pipe->out_fd, STDOUT_FILENO) == -1)
-			exit(1);
-	}	
+	else if (dup2(holder->pipe->out_fd, STDOUT_FILENO) == -1)
+		exit(1);
 	close (pipes[1]);
 	close (holder->pipe->in_fd);
 	close (holder->pipe->out_fd);
 	close (pipes[0]);
 	if (!holder->cmds[index]->path)
 	{
-		perror("command not found");
+		ft_putstr_fd("pipex: ", STDERR_FILENO);
+		ft_putstr_fd(holder->cmds[index]->argv[0], STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 		exit(127);
 	}
 	if (execve(holder->cmds[index]->path, \
