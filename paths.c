@@ -6,12 +6,14 @@
 /*   By: mtravez <mtravez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 15:30:39 by mtravez           #+#    #+#             */
-/*   Updated: 2023/02/25 14:09:14 by mtravez          ###   ########.fr       */
+/*   Updated: 2023/02/27 16:25:23 by mtravez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/*This function returns a character matrix containing every 
+available address in the environment parameter.*/
 char	**get_paths(char **envp)
 {
 	int		i;
@@ -30,6 +32,9 @@ char	**get_paths(char **envp)
 	return (paths);
 }
 
+/*This function looks through every address in paths for
+the specific path of cmd using access. It returns NULL if
+it couldn't find the path*/
 char	*get_cpath(char **paths, char *cmd)
 {
 	int		i;
@@ -52,6 +57,9 @@ char	*get_cpath(char **paths, char *cmd)
 	return (NULL);
 }
 
+/*This function opens the path_in and path_out and saves the fds in a 
+type pipe structure. For the out file, it also will crete a new file
+if one doesn't exist*/
 t_pipe	*new_pipe(char	*path_in, char *path_out)
 {
 	t_pipe	*pipe;

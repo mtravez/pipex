@@ -6,7 +6,7 @@
 /*   By: mtravez <mtravez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:30:44 by mtravez           #+#    #+#             */
-/*   Updated: 2023/02/25 13:56:02 by mtravez          ###   ########.fr       */
+/*   Updated: 2023/02/27 16:45:23 by mtravez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	holder = init_holder(argv, argc, paths);
 	if (!holder)
 	{
-		write(STDERR_FILENO, "bad holder input", 16);
+		ft_putstr_fd(STDERR_FILENO, "bad holder input");
 		if (paths)
 			free_matrix(paths);
 		return (1);

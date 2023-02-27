@@ -6,12 +6,13 @@
 /*   By: mtravez <mtravez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 15:44:50 by mtravez           #+#    #+#             */
-/*   Updated: 2023/02/22 18:53:24 by mtravez          ###   ########.fr       */
+/*   Updated: 2023/02/27 14:00:49 by mtravez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/*This function frees a character matrix*/
 void	free_matrix(char **to_free)
 {
 	int	i;
@@ -25,6 +26,7 @@ void	free_matrix(char **to_free)
 	free(to_free);
 }
 
+/*This function frees a command type structure*/
 void	free_cmd(t_command *command)
 {
 	free(command->path);
@@ -32,6 +34,7 @@ void	free_cmd(t_command *command)
 	free(command);
 }
 
+/*This unction frees a holder type structure*/
 void	free_holder(t_holder *holder)
 {
 	int	i;

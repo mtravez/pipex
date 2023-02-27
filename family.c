@@ -6,13 +6,20 @@
 /*   By: mtravez <mtravez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 18:44:10 by mtravez           #+#    #+#             */
-/*   Updated: 2023/02/25 14:55:26 by mtravez          ###   ########.fr       */
+/*   Updated: 2023/02/27 13:59:36 by mtravez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	child(t_holder *holder, int index, int *pipes)
+/*This function is the child process for ultimate parent.
+Here the linux commands are executed in pipes and, depending on the index, 
+printed out on the output file.
+@param holder the holder containing the arguments for the commands 
+and file descriptors
+@param index the index of the command to be executed
+@param pipes the pipe created in the parent for */
+static int	child(t_holder *holder, int index, int *pipes)
 {
 	if (dup2(holder->pipe->in_fd, STDIN_FILENO) == -1)
 		exit(1);
@@ -41,7 +48,9 @@ int	child(t_holder *holder, int index, int *pipes)
 	exit(0);
 }
 
-void	close_parent(t_holder *holder, int index, int *fd)
+/*This function closes all necessary file descriptors after the execution of
+the child*/
+static void	close_parent(t_holder *holder, int index, int *fd)
 {
 	close (holder->pipe->in_fd);
 	holder->pipe->in_fd = fd[0];
@@ -53,6 +62,8 @@ void	close_parent(t_holder *holder, int index, int *fd)
 	}
 }
 
+/*This function executes all commands in holder using pipes. If there
+is an error, it will return the error status.*/
 int	parent_ultimate(t_holder *holder)
 {
 	int	her;
@@ -75,7 +86,3 @@ int	parent_ultimate(t_holder *holder)
 	waitpid(her, &status, 0);
 	return (status);
 }
-
-// child[0] -> dup2(in_fd, pipe[1])
-// child[1] -> dup2(pipe[0], pipe1[1])
-// child[2] -> dup2(pipe1[0], out_fd)

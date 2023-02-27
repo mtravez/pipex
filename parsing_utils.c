@@ -6,12 +6,14 @@
 /*   By: mtravez <mtravez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:29:49 by mtravez           #+#    #+#             */
-/*   Updated: 2023/02/21 14:51:22 by mtravez          ###   ########.fr       */
+/*   Updated: 2023/02/27 14:35:16 by mtravez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/*Thiss function returns the first word out of a string, which
+in this context is expected to be the command name*/
 static char	*get_cmd(char *arg)
 {
 	int		i;
@@ -23,6 +25,8 @@ static char	*get_cmd(char *arg)
 	return (ft_substr(arg, 0, i - 1));
 }
 
+/*This function returns a character matrix holding the seprate
+instructions for the commands.*/
 char	**ft_split_cmds(char *arg)
 {
 	char	*substr;
